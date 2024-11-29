@@ -15,7 +15,7 @@ export default function Reservation() {
     await new Promise(resolve => setTimeout(resolve, 2000)) // Simulating API call
     
     // Prepare WhatsApp message
-    const message = `New Reservation:
+    const message = `New Reservation at JB's Lounge:
 Name: ${data.name}
 Phone: ${data.phone}
 Email: ${data.email}
@@ -35,7 +35,7 @@ Guests: ${data.guests}`
   return (
     <div className="min-h-screen pt-20 pb-12">
       <div className="container mx-auto px-4">
-        <h1 className="text-4xl md:text-5xl font-bold text-center mb-12">Make a Reservation</h1>
+        <h1 className="text-4xl md:text-5xl font-bold text-center mb-12">Make a Reservation at JB&apos;s Lounge</h1>
 
         <div className="max-w-md mx-auto bg-gray-800 p-8 rounded-lg shadow-lg">
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
@@ -115,7 +115,7 @@ Guests: ${data.guests}`
           </form>
 
           {submitSuccess && (
-            <p className="text-green-500 mt-4 text-center">Thank you for your reservation. We'll confirm it shortly via WhatsApp!</p>
+            <p className="text-green-500 mt-4 text-center">Thank you for your reservation at JB&apos;s Lounge. We&apos;ll confirm it shortly via WhatsApp!</p>
           )}
         </div>
       </div>

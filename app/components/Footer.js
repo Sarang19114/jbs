@@ -7,7 +7,7 @@ const Footer = () => {
       <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8">
         <div className="xl:grid xl:grid-cols-3 xl:gap-8">
           <div className="space-y-8 xl:col-span-1">
-            <h2 className="text-2xl font-bold">JB Lounge</h2>
+            <h2 className="text-2xl font-bold">JB&apos;s Lounge</h2>
             <p className="text-gray-300">Where Great Nights Begin</p>
             <div className="flex space-x-6">
               <a href="#" className="text-gray-400 hover:text-white">
@@ -31,7 +31,6 @@ const Footer = () => {
                 <ul className="mt-4 space-y-4">
                   <li><Link href="/" className="text-base text-gray-300 hover:text-white">Home</Link></li>
                   <li><Link href="/menu" className="text-base text-gray-300 hover:text-white">Menu</Link></li>
-                  <li><Link href="/events" className="text-base text-gray-300 hover:text-white">Events</Link></li>
                   <li><Link href="/gallery" className="text-base text-gray-300 hover:text-white">Gallery</Link></li>
                 </ul>
               </div>
@@ -47,7 +46,7 @@ const Footer = () => {
         </div>
         <div className="mt-12 border-t border-gray-800 pt-8">
           <p className="text-base text-gray-400 xl:text-center">
-            &copy; {new Date().getFullYear()} JB Lounge. All rights reserved.
+            &copy; {new Date().getFullYear()} JB&apos;s Lounge. All rights reserved.
           </p>
         </div>
       </div>
