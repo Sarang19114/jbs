@@ -1,9 +1,10 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import Image from "next/image";
 
 export const HeroParallax = ({ products }) => {
+  const [mounted, setMounted] = useState(false); // State to track if the component has mounted
   const firstRow = products.slice(0, 5);
   const secondRow = products.slice(5, 10);
   const thirdRow = products.slice(10, 15);
@@ -12,6 +13,11 @@ export const HeroParallax = ({ products }) => {
     target: ref,
     offset: ["start start", "end start"],
   });
+
+  useEffect(() => {
+    // This will run only on the client-side after the component is mounted
+    setMounted(true);
+  }, []);
 
   const springConfig = { stiffness: 300, damping: 30, bounce: 100 };
 
@@ -49,6 +55,11 @@ export const HeroParallax = ({ products }) => {
     useTransform(scrollYProgress, [0, 0.2], [-700, 500]),
     springConfig
   );
+
+  if (!mounted) {
+    // Return null or a placeholder until the component is mounted
+    return null;
+  }
 
   return (
     <div
