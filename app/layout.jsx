@@ -7,8 +7,8 @@ const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
 const playfair = Playfair_Display({ subsets: ['latin'], variable: '--font-playfair' })
 
 export const metadata = {
-  title: 'JB Lounge - Where Great Nights Begin',
-  description: 'Experience unforgettable nights at JB Lounge. Enjoy crafted cocktails, delicious food, and live events in a luxurious setting.',
+  title: "JB's Lounge - Pouring Perfection",
+  description: "Experience unforgettable nights at JB's Lounge. Enjoy crafted cocktails, delicious food, and live events in a luxurious setting.",
 }
 
 export default function RootLayout({ children }) {

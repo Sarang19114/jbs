@@ -1,116 +1,221 @@
-'use client'
+"use client";
 
-import { useState } from 'react'
-import { useForm } from 'react-hook-form'
-import { Facebook, Instagram, Twitter } from 'lucide-react'
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { Facebook, Instagram, Twitter } from "lucide-react";
 
 export default function Contact() {
-  const { register, handleSubmit, formState: { errors } } = useForm()
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [submitSuccess, setSubmitSuccess] = useState(false)
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitSuccess, setSubmitSuccess] = useState(false);
 
   const onSubmit = async (data) => {
-    setIsSubmitting(true)
-    // Here you would typically send the form data to your backend
-    await new Promise(resolve => setTimeout(resolve, 2000)) // Simulating API call
-    setIsSubmitting(false)
-    setSubmitSuccess(true)
-  }
+    setIsSubmitting(true);
+    // Simulate API call
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+    setIsSubmitting(false);
+    setSubmitSuccess(true);
+  };
 
   return (
     <div className="min-h-screen pt-20 pb-12">
       <div className="container mx-auto px-4">
-        <h1 className="text-4xl md:text-5xl font-bold text-center mb-12">Contact Us</h1>
+        <h1 className="text-4xl md:text-5xl font-bold text-center mb-12">
+          Contact Us
+        </h1>
 
         <div className="grid md:grid-cols-2 gap-8">
           <div>
             <h2 className="text-2xl font-semibold mb-4">Get in Touch</h2>
-            <p className="mb-4">Have a question or want to make a reservation? Fill out the form and we'll get back to you as soon as possible.</p>
-            
+            <p className="mb-4">
+              Have a question or want to make a reservation? Fill out the form
+              and we'll get back to you as soon as possible.
+            </p>
+
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
               <div>
-                <label htmlFor="name" className="block mb-1">Name</label>
+                <label htmlFor="name" className="block mb-1">
+                  Name
+                </label>
                 <input
                   type="text"
                   id="name"
-                  {...register('name', { required: 'Name is required' })}
+                  {...register("name", { required: "Name is required" })}
                   className="w-full px-3 py-2 bg-gray-800 rounded-md"
                 />
-                {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name.message}</p>}
+                {errors.name && (
+                  <p className="text-red-500 text-sm mt-1">
+                    {errors.name.message}
+                  </p>
+                )}
               </div>
+
               <div>
-                <label htmlFor="email" className="block mb-1">Email</label>
+                <label htmlFor="email" className="block mb-1">
+                  Email
+                </label>
                 <input
                   type="email"
                   id="email"
-                  {...register('email', {
-                    required: 'Email is required',
+                  {...register("email", {
+                    required: "Email is required",
                     pattern: {
                       value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                      message: 'Invalid email address',
+                      message: "Invalid email address",
                     },
                   })}
                   className="w-full px-3 py-2 bg-gray-800 rounded-md"
                 />
-                {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>}
+                {errors.email && (
+                  <p className="text-red-500 text-sm mt-1">
+                    {errors.email.message}
+                  </p>
+                )}
               </div>
+
               <div>
-                <label htmlFor="message" className="block mb-1">Message</label>
+                <label htmlFor="phone" className="block mb-1">
+                  Phone Number
+                </label>
+                <input
+                  type="tel"
+                  id="phone"
+                  {...register("phone", {
+                    required: "Phone number is required",
+                    pattern: {
+                      value: /^\d{10}$/,
+                      message: "Invalid phone number (10 digits required)",
+                    },
+                  })}
+                  className="w-full px-3 py-2 bg-gray-800 rounded-md"
+                />
+                {errors.phone && (
+                  <p className="text-red-500 text-sm mt-1">
+                    {errors.phone.message}
+                  </p>
+                )}
+              </div>
+
+              <div>
+                <label htmlFor="datetime" className="block mb-1">
+                  Date and Time
+                </label>
+                <input
+                  type="datetime-local"
+                  id="datetime"
+                  {...register("datetime", {
+                    required: "Date and time are required",
+                  })}
+                  className="w-full px-3 py-2 bg-gray-800 rounded-md"
+                />
+                {errors.datetime && (
+                  <p className="text-red-500 text-sm mt-1">
+                    {errors.datetime.message}
+                  </p>
+                )}
+              </div>
+
+              <div>
+                <label htmlFor="guests" className="block mb-1">
+                  Number of Guests
+                </label>
+                <input
+                  type="number"
+                  id="guests"
+                  {...register("guests", {
+                    required: "Number of guests is required",
+                    min: { value: 1, message: "At least 1 guest is required" },
+                  })}
+                  className="w-full px-3 py-2 bg-gray-800 rounded-md"
+                />
+                {errors.guests && (
+                  <p className="text-red-500 text-sm mt-1">
+                    {errors.guests.message}
+                  </p>
+                )}
+              </div>
+
+              <div>
+                <label htmlFor="message" className="block mb-1">
+                  Message
+                </label>
                 <textarea
                   id="message"
-                  {...register('message', { required: 'Message is required' })}
+                  {...register("message", { required: "Message is required" })}
                   rows="4"
                   className="w-full px-3 py-2 bg-gray-800 rounded-md"
                 ></textarea>
-                {errors.message && <p className="text-red-500 text-sm mt-1">{errors.message.message}</p>}
+                {errors.message && (
+                  <p className="text-red-500 text-sm mt-1">
+                    {errors.message.message}
+                  </p>
+                )}
               </div>
+
               <button
                 type="submit"
                 disabled={isSubmitting}
                 className="bg-primary text-black px-6 py-2 rounded-md hover:bg-primary/80 transition duration-300 disabled:opacity-50"
               >
-                {isSubmitting ? 'Sending...' : 'Send Message'}
+                {isSubmitting ? "Sending..." : "Send Message"}
               </button>
             </form>
 
             {submitSuccess && (
-              <p className="text-green-500 mt-4">Thank you for your message. We'll get back to you soon!</p>
+              <p className="text-green-500 mt-4">
+                Thank you for your message. We'll get back to you soon!
+              </p>
             )}
           </div>
 
           <div>
             <h2 className="text-2xl font-semibold mb-4">Visit Us</h2>
-            <p className="mb-4">123 Lounge Street<br />Nightlife City, NC 12345</p>
-            
+            <p className="mb-4">
+              Tourist Complex Area, Near Man Singh Palace, Vibhav Nagar,
+              Tajganj, Agra, Uttar Pradesh-282001
+            </p>
+
             <h3 className="text-xl font-semibold mb-2">Opening Hours</h3>
             <p className="mb-4">
-              Monday - Thursday: 5pm - 1am<br />
-              Friday - Saturday: 5pm - 3am<br />
-              Sunday: Closed
+              Monday - Sunday
+              <br />
+              12:30 PM - 2:00 AM
             </p>
 
             <h3 className="text-xl font-semibold mb-2">Contact</h3>
             <p className="mb-4">
-              Phone: (123) 456-7890<br />
-              Email: info@jblounge.com
+              Phone: +91 72170 70370
+              <br />
+              Email: concierge@jbsloungeandbar.com
             </p>
 
             <h3 className="text-xl font-semibold mb-2">Follow Us</h3>
             <div className="flex space-x-4">
-              <a href="#" className="text-gray-400 hover:text-white">
+              <a
+                href="https://www.facebook.com/JBsLoungeAndBar"
+                className="text-gray-400 hover:text-white"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <Facebook size={24} />
               </a>
-              <a href="#" className="text-gray-400 hover:text-white">
+              <a
+                href="https://www.instagram.com/jbs.lounge_bar"
+                className="text-gray-400 hover:text-white"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <Instagram size={24} />
-              </a>
-              <a href="#" className="text-gray-400 hover:text-white">
-                <Twitter size={24} />
               </a>
             </div>
 
             <div className="mt-8">
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022.215381669648!2d-73.98823492426965!3d40.75838383589536!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25855c6480299%3A0x55194ec5a1ae072e!2sTimes+Square!5e0!3m2!1sen!2sus!4v1623252352744!5m2!1sen!2sus"
+                src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d13164.021407531643!2d78.0337237!3d27.1610575!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3974719918b77377%3A0x769ba35f95fbb606!2sJB&#39;s%20Lounge%20and%20Bar!5e1!3m2!1sen!2sin!4v1732926676933!5m2!1sen!2sin"
                 width="100%"
                 height="300"
                 style={{ border: 0 }}
@@ -122,6 +227,5 @@ export default function Contact() {
         </div>
       </div>
     </div>
-  )
+  );
 }
-

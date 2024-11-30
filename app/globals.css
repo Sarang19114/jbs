@@ -56,3 +56,13 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
+/* Hide scrollbars but keep scrolling functionality */
+.hide-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;      /* Firefox */
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
+}
+
