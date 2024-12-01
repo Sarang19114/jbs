@@ -14,5 +14,5 @@ export const products = [
     { thumbnail: "/assets/G13.jpg" },
     { thumbnail: "/assets/G14.jpg" },
     { thumbnail: "/assets/G15.jpg" },
-  ];
+];
   
