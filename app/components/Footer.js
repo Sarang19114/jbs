@@ -4,7 +4,7 @@ import { Facebook, Instagram, Twitter } from "lucide-react";
 const Footer = () => {
   return (
     <footer className="bg-black text-white">
-      <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:py-16 lg:px-8">
         <div className="xl:grid xl:grid-cols-3 xl:gap-8">
           <div className="space-y-8 xl:col-span-1">
             <h2 className="text-2xl font-bold">JB&apos;s Lounge & Bar</h2>

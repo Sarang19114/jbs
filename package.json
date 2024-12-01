@@ -10,6 +10,10 @@
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.1.0",
+    "@react-three/fiber": "^8.17.10",
+    "@tsparticles/engine": "^3.7.1",
+    "@tsparticles/react": "^3.0.0",
+    "@tsparticles/slim": "^3.7.1",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "date-fns": "^3.6.0",
@@ -20,7 +24,8 @@
     "react-day-picker": "^8.10.1",
     "react-dom": "^18",
     "react-hook-form": "^7.53.2",
-    "tailwind-merge": "^2.5.5"
+    "tailwind-merge": "^2.5.5",
+    "three": "^0.171.0"
   },
   "devDependencies": {
     "@types/node": "^20",

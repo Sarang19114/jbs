@@ -66,3 +66,126 @@ h1, h2, h3, h4, h5, h6 {
   display: none; /* Safari and Chrome */
 }
 
+.flex-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Ensure content grows and footer aligns */
+.main-content {
+  flex-grow: 1;
+}
+
+
+/* General styles for the menu container */
+.menu-container {
+  padding: 5rem 2rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr; /* 3 columns by default */
+  gap: 2rem;
+  max-width: 100%;
+  margin: 0 auto;
+  padding-left: 2rem;
+  padding-right: 2rem;
+
+  /* Center the grid within the container */
+  height: 100vh; /* Full viewport height */
+  place-items: center; /* This centers the grid both horizontally and vertically */
+}
+
+/* For medium screens (md), show 2 items per row */
+@media (max-width: 1024px) {
+  .menu-container {
+    grid-template-columns: 1fr 1fr; /* 2 items per row */
+  }
+}
+
+/* For small screens (sm), show 1 item per row */
+@media (max-width: 768px) {
+  .menu-container {
+    grid-template-columns: 1fr; /* 1 item per row */
+  }
+}
+
+
+/* Styling for each card */
+.card-wrapper {
+  position: relative;
+  width: 300px;
+  height: 400px;
+  perspective: 1000px; /* Gives depth to the 3D effect */
+  transition: transform 0.5s ease;
+}
+
+.card {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d; /* Keep children in 3D space */
+  transition: transform 0.5s;
+}
+
+.card:hover {
+  transform: rotateY(180deg); /* Flips the card on hover */
+}
+
+/* Front side of the card */
+.card .front {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  background-image: url('/assets/BlackAce.png');
+  background-size: contain; /* Ensures the image fits within the container */
+  background-position: center; /* Centers the image within the container */
+  background-repeat: no-repeat; /* Prevents the image from repeating */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  backface-visibility: hidden; /* Prevents the front side from showing when flipped */
+}
+
+/* Back side of the card */
+.card .back {
+  position: absolute;
+  text-align: center;
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 20px;
+  transform: rotateY(180deg); /* Rotates the back side */
+  backface-visibility: hidden; /* Prevents the back side from showing when flipped */
+}
+
+/* Add styles for images inside the cards */
+.card img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Optional: Styling for text inside the back */
+.card .back h3 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-top: 1rem;
+}
+
+.card .back p {
+  font-size: 1rem;
+  text-align: center;
+  margin-top: 0.5rem;
+}
+
+/* Apply margin to footer only on /menu page */
+.menu-footer {
+  margin-top: 3rem; /* Adjust this value to your preference */
+}
+

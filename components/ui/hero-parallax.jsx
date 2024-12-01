@@ -1,10 +1,9 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import Image from "next/image";
 
 export const HeroParallax = ({ products }) => {
-  const [mounted, setMounted] = useState(false); // State to track if the component has mounted
   const firstRow = products.slice(0, 5);
   const secondRow = products.slice(5, 10);
   const thirdRow = products.slice(10, 15);
@@ -14,31 +13,16 @@ export const HeroParallax = ({ products }) => {
     offset: ["start start", "end start"],
   });
 
-  useEffect(() => {
-    // This will run only on the client-side after the component is mounted
-    setMounted(true);
-  }, []);
-
   const springConfig = { stiffness: 300, damping: 30, bounce: 100 };
 
-  // First row moves left (to the right side)
-  const translateXFirst = useSpring(
+  const translateX = useSpring(
     useTransform(scrollYProgress, [0, 1], [0, -1000]),
     springConfig
   );
-
-  // Second row moves right (to the left side)
-  const translateXSecond = useSpring(
+  const translateXReverse = useSpring(
     useTransform(scrollYProgress, [0, 1], [0, -1000]),
     springConfig
   );
-
-  // Third row moves left (to the right side)
-  const translateXThird = useSpring(
-    useTransform(scrollYProgress, [0, 1], [0, -1000]),
-    springConfig
-  );
-
   const rotateX = useSpring(
     useTransform(scrollYProgress, [0, 0.2], [15, 0]),
     springConfig
@@ -56,15 +40,10 @@ export const HeroParallax = ({ products }) => {
     springConfig
   );
 
-  if (!mounted) {
-    // Return null or a placeholder until the component is mounted
-    return null;
-  }
-
   return (
     <div
       ref={ref}
-      className="relative h-[300vh] py-40 pb-1 overflow-hidden antialiased flex flex-col self-auto [perspective:1000px] [transform-style:preserve-3d]"
+      className="h-[300vh] py-32 overflow-hidden antialiased relative flex flex-col self-auto [perspective:1000px] [transform-style:preserve-3d]"
     >
       <Header />
       <motion.div
@@ -74,37 +53,37 @@ export const HeroParallax = ({ products }) => {
           translateY,
           opacity,
         }}
-        className="relative w-full flex flex-col items-center justify-center"
+        className="relative"
       >
-        {/* First Row - Moves left */}
-        <motion.div className="flex space-x-20 mb-20 overflow-x-auto hide-scrollbar justify-start">
-          {firstRow.map((product) => (
+        {/* First Row */}
+        <motion.div className="flex space-x-20 mb-20 overflow-x-auto hide-scrollbar">
+          {[...firstRow, ...firstRow].map((product) => (
             <ProductCard
               product={product}
-              translate={translateXFirst}
-              key={product.thumbnail}
+              translate={translateX}
+              key={product.title}
             />
           ))}
         </motion.div>
 
-        {/* Second Row - Moves right */}
-        <motion.div className="flex space-x-20 mb-20 overflow-x-auto hide-scrollbar justify-start">
-          {secondRow.map((product) => (
+        {/* Second Row */}
+        <motion.div className="flex space-x-20 mb-20 overflow-x-auto hide-scrollbar">
+          {[...secondRow, ...secondRow].map((product) => (
             <ProductCard
               product={product}
-              translate={translateXSecond}
-              key={product.thumbnail}
+              translate={translateXReverse}
+              key={product.title}
             />
           ))}
         </motion.div>
 
-        {/* Third Row - Moves left */}
-        <motion.div className="flex space-x-20 mb-20 overflow-x-auto hide-scrollbar justify-start lg:hidden">
-          {thirdRow.map((product) => (
+        {/* Third Row (Visible only on mobile devices) */}
+        <motion.div className="flex space-x-20 mb-20 overflow-x-auto hide-scrollbar lg:hidden">
+          {[...thirdRow, ...thirdRow].map((product) => (
             <ProductCard
               product={product}
-              translate={translateXThird}
-              key={product.thumbnail}
+              translate={translateX}
+              key={product.title}
             />
           ))}
         </motion.div>
@@ -119,7 +98,7 @@ export const Header = () => {
       <h1 className="text-2xl md:text-7xl font-bold dark:text-white">
         JB's Through the Lens
       </h1>
-      <p className="max-w-2xl text-base md:text-xl mt-8 dark:text-neutral-200">
+      <p className="max-w-2xl text-xl lg:text-2xl mt-8 dark:text-neutral-200">
         Experience the magic of JB's Bar & Lounge through our gallery. A place
         where memories are made, laughter is shared, and good times are eternal.
       </p>
@@ -136,6 +115,7 @@ export const ProductCard = ({ product, translate }) => {
       whileHover={{
         y: -20,
       }}
+      key={product.title}
       className="group/product h-96 w-[30rem] relative flex-shrink-0"
     >
       <Image
