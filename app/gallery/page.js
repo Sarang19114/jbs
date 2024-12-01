@@ -1,8 +1,6 @@
-"use client";
 import React from "react";
 import { HeroParallax } from "@/components/ui/hero-parallax";
 import { products } from "@/app/data/products";
-import Footer from "../components/Footer";
 import { SparklesCore } from "@/components/ui/sparkles";
 
 export default function Gallery() {

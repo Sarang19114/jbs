@@ -26,11 +26,7 @@ export default function Contact() {
     setIsSubmitting(true);
 
     // Format the booking message for WhatsApp
-    const message = `New Booking Request:\nName: ${data.name}\nEmail: ${
-      data.email
-    }\nPhone: ${data.phone}\nDate: ${data.datetime.split("T")[0]}\nTime: ${
-      data.datetime.split("T")[1]
-    }\nGuests: ${data.guests}\nMessage: ${data.message}`;
+    const message = `New Booking Request:\nName: ${data.name}\nEmail: ${data.email}\nPhone: ${data.phone}\nDate: ${data.datetime.split("T")[0]}\nTime: ${data.datetime.split("T")[1]}\nGuests: ${data.guests}\nMessage: ${data.message}`;
     const encodedMessage = encodeURIComponent(message);
 
     // WhatsApp phone number (replace with actual business number)
@@ -43,12 +39,18 @@ export default function Contact() {
     await new Promise((resolve) => setTimeout(resolve, 2000));
     setIsSubmitting(false);
 
-    // Open WhatsApp in a new tab
-    window.open(whatsappUrl, "_blank");
+    // Open WhatsApp with platform-specific handling
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+    try {
+      if (isIOS) {
+        window.location.href = whatsappUrl; // Direct navigation for iOS
+      } else {
+        window.open(whatsappUrl, "_blank"); // New tab for other platforms
+      }
+    } catch (error) {
+      alert("Unable to open WhatsApp. Please try again.");
+    }
   };
-
-  // Step interval: 30 minutes
-  const step = 1800; // 30 minutes in seconds
 
   return (
     <div className="min-h-screen pt-20 pb-12">
@@ -136,39 +138,12 @@ export default function Contact() {
                 <div className="relative">
                   <Calendar
                     className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
-                    selected={selectedDate}
-                    onSelect={(date) => {
-                      // Update the selected date in the state and call the handler
-                      setSelectedDate(date);
-                      handleDateTimeChange({ date }); // Automatically populate the date and time
-                    }}
-                    // Disable past dates
-                    disabled={{
-                      before: new Date(), // Disables any date before today
-                    }}
                   />
                   <input
                     type="datetime-local"
                     id="datetime"
                     {...register("datetime", {
                       required: "Date and time are required",
-                      validate: (value) => {
-                        const selectedDateTime = new Date(value);
-                        const now = new Date();
-
-                        // Validation rules:
-                        // Ensure the selected time is between 12:00 PM and 2:00 AM (next day)
-                        const startTime = new Date(selectedDateTime);
-                        startTime.setHours(12, 0, 0, 0); // Set to 12:00 PM of the selected date
-
-                        const isInFuture = selectedDateTime >= now; // Only future times are allowed
-
-                        if (!isInFuture) {
-                          return "You can only select today's or future dates.";
-                        }
-
-                        return true;
-                      },
                     })}
                     className="w-full px-3 py-2 bg-gray-800 pl-10 rounded-md"
                   />
@@ -184,21 +159,15 @@ export default function Contact() {
                 <label htmlFor="guests" className="block mb-1">
                   Number of Guests
                 </label>
-                <div className="relative">
-                  <Users className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
-                  <input
-                    type="number"
-                    id="guests"
-                    {...register("guests", {
-                      required: "Number of guests is required",
-                      min: {
-                        value: 1,
-                        message: "At least 1 guest is required",
-                      },
-                    })}
-                    className="w-full px-3 py-2 bg-gray-800 pl-10 rounded-md"
-                  />
-                </div>
+                <input
+                  type="number"
+                  id="guests"
+                  {...register("guests", {
+                    required: "Number of guests is required",
+                    min: { value: 1, message: "At least 1 guest is required" },
+                  })}
+                  className="w-full px-3 py-2 bg-gray-800 rounded-md"
+                />
                 {errors.guests && (
                   <p className="text-red-500 text-sm mt-1">
                     {errors.guests.message}
@@ -212,7 +181,7 @@ export default function Contact() {
                 </label>
                 <textarea
                   id="message"
-                  {...register("message", { required: "Message is required" })}
+                  {...register("message")}
                   rows="4"
                   className="w-full px-3 py-2 bg-gray-800 rounded-md"
                 ></textarea>
@@ -233,7 +202,6 @@ export default function Contact() {
             </form>
           </div>
 
-          {/* Sidebar Section */}
           <div>
             <h2 className="text-2xl font-semibold mb-4">Visit Us</h2>
             <p className="mb-4">

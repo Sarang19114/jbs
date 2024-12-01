@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -22,9 +22,16 @@ export default function Home() {
         />
         <div className="absolute inset-0 bg-black bg-opacity-50"></div>
         <div className="relative z-10 text-center flex flex-col items-center">
-          <Image src="/assets/logo[1].png" alt="Logo" width={500} height={500} />
+          <Image
+            src="/assets/logo[1].png"
+            alt="Logo"
+            width={500}
+            height={500}
+          />
           {/* Text Reveal Component */}
-          <h1 className="text-4xl md:text-6xl font-bold text-[#f8941c] mt-[-30px] text-center">Pouring Perfection</h1>
+          <h1 className="text-4xl md:text-6xl font-bold text-[#f8941c] mt-[-30px] text-center">
+            Pouring Perfection
+          </h1>
           <div className="space-x-4 mt-16">
             <Link
               href="/menu"
@@ -46,15 +53,21 @@ export default function Home() {
       <main className="py-20 bg-[#f8941c] text-white">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white">
+            <h2 className="text-4xl md:text-4xl font-bold mb-6 text-white">
               Welcome to JB's Lounge & Bar
             </h2>
-            <p className="text-lg mb-8 text-white">
-              Experience the perfect blend of sophistication and comfort at JB
-              Lounge. Our expert mixologists craft exquisite cocktails while our
-              chefs prepare delectable bites. Whether you&apos;re looking for a
-              romantic evening or a night out with friends, JB Lounge is your
-              destination for unforgettable moments.
+            <p className="text-xl mb-8 text-white">
+              Namaste and welcome
+              to JB’s, your ultimate retreat where luxury meets the vibrant
+              spirit of India. From the moment you step in, you’ll feel embraced
+              by a blend of timeless elegance and rich cultural heritage,
+              creating a space that’s both refined and inviting. At JB’s, our
+              cocktails and artisanal brews are crafted to take you on a journey
+              through India’s diverse landscapes. Each drink, infused with
+              traditional spices and modern twists, offers a taste of bustling
+              spice markets, serene royal gardens, and festive bazaars. It’s not
+              just about drinking; it’s about experiencing the essence of India
+              with every sip.
             </p>
           </div>
         </div>
@@ -63,7 +76,7 @@ export default function Home() {
       {/* Featured Section */}
       <section className="py-20 bg-black relative">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center text-white">
+          <h2 className="text-4xl md:text-4xl font-bold mb-12 text-center text-white">
             Featured at JB's Lounge & Bar
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
