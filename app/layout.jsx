@@ -1,5 +1,6 @@
 import { Inter, Playfair_Display } from 'next/font/google'
 import { Metadata } from 'next'
+import Script from 'next/script'
 import './globals.css'
 import Navigation from './components/Navigation'
 import Footer from './components/Footer'
@@ -66,17 +67,21 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
+        <link rel="preconnect" href="https://www.googletagmanager.com" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+        <link rel="preconnect" href="https://www.google-analytics.com" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="https://www.google-analytics.com" />
+        <link rel="preconnect" href="https://images.unsplash.com" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="https://images.unsplash.com" />
         <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17633900723"></script>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
+        <script>
+          {`
   window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
+  function gtag(){dataLayer.push(arguments);} 
   gtag('js', new Date());
   gtag('config', 'AW-17633900723');
-            `,
-          }}
-        />
+          `}
+        </script>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{

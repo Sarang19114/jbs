@@ -38,10 +38,11 @@ const Navigation = () => {
           </div>
           <div className="hidden md:block">
             <div className="ml-10 flex items-baseline space-x-4">
-              {navLinks.map((link) => (
+            {navLinks.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
+                prefetch
                   className={`px-3 py-2 rounded-md text-sm font-medium ${pathname === link.href
                     ? 'text-black bg-primary'
                     : 'text-gray-300 hover:bg-gray-700 hover:text-white'
@@ -75,6 +76,7 @@ const Navigation = () => {
               <Link
                 key={link.href}
                 href={link.href}
+                prefetch
                 className={`block px-3 py-2 rounded-md text-base font-medium ${pathname === link.href
                   ? 'text-black bg-primary'
                   : 'text-gray-300 hover:bg-gray-700 hover:text-white'
