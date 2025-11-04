@@ -20,14 +20,25 @@ export const SparklesCore = (props) => {
   const [init, setInit] = useState(false);
   const [isClient, setIsClient] = useState(false); // State to track client-side rendering
 
-  // Initialize particles only on the client side
+  // Initialize particles only on the client side, after the page is idle
   useEffect(() => {
-    setIsClient(true); // Set to true after the component mounts on the client
+    setIsClient(true);
 
-    initParticlesEngine(async (engine) => {
-      await loadSlim(engine);
-    }).then(() => {
-      setInit(true);
+    const idle = (cb) => {
+      if (typeof window !== 'undefined' && 'requestIdleCallback' in window) {
+        // @ts-ignore - not in TS lib for older targets
+        window.requestIdleCallback(cb, { timeout: 2000 });
+      } else {
+        setTimeout(cb, 1200); // slight delay to avoid competing with LCP
+      }
+    };
+
+    idle(() => {
+      initParticlesEngine(async (engine) => {
+        await loadSlim(engine);
+      }).then(() => {
+        setInit(true);
+      });
     });
   }, []);
 

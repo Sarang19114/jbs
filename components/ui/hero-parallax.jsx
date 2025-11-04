@@ -1,42 +1,72 @@
 "use client";
-import React from "react";
-import { motion, useScroll, useTransform, useSpring } from "framer-motion";
+import React, { useState, useEffect } from "react";
+import { motion, useScroll, useTransform, useSpring, useMotionValue } from "framer-motion";
 import Image from "next/image";
 
 export const HeroParallax = ({ products }) => {
+  const [isReady, setIsReady] = useState(false);
   const firstRow = products.slice(0, 5);
   const secondRow = products.slice(5, 10);
   const thirdRow = products.slice(10, 15);
   const ref = React.useRef(null);
+  
+  // Initialize scroll hooks only after idle to avoid blocking main thread
+  useEffect(() => {
+    const idle = (cb) => {
+      if (typeof window !== 'undefined' && 'requestIdleCallback' in window) {
+        // @ts-ignore - not in TS lib for older targets
+        window.requestIdleCallback(cb, { timeout: 2000 });
+      } else {
+        setTimeout(cb, 1200);
+      }
+    };
+
+    idle(() => {
+      setIsReady(true);
+    });
+  }, []);
+
+  // Use a motion value that starts at 0, then connects to scroll after idle
+  const lazyScrollProgress = useMotionValue(0);
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start start", "end start"],
   });
 
+  // Connect real scroll progress after idle
+  useEffect(() => {
+    if (isReady && scrollYProgress) {
+      const unsubscribe = scrollYProgress.on('change', (latest) => {
+        lazyScrollProgress.set(latest);
+      });
+      return unsubscribe;
+    }
+  }, [isReady, scrollYProgress, lazyScrollProgress]);
+
   const springConfig = { stiffness: 300, damping: 30, bounce: 100 };
 
   const translateX = useSpring(
-    useTransform(scrollYProgress, [0, 1], [0, -1000]),
+    useTransform(lazyScrollProgress, [0, 1], [0, -1000]),
     springConfig
   );
   const translateXReverse = useSpring(
-    useTransform(scrollYProgress, [0, 1], [0, -1000]),
+    useTransform(lazyScrollProgress, [0, 1], [0, -1000]),
     springConfig
   );
   const rotateX = useSpring(
-    useTransform(scrollYProgress, [0, 0.2], [15, 0]),
+    useTransform(lazyScrollProgress, [0, 0.2], [15, 0]),
     springConfig
   );
   const opacity = useSpring(
-    useTransform(scrollYProgress, [0, 0.2], [0.2, 1]),
+    useTransform(lazyScrollProgress, [0, 0.2], [0.2, 1]),
     springConfig
   );
   const rotateZ = useSpring(
-    useTransform(scrollYProgress, [0, 0.2], [20, 0]),
+    useTransform(lazyScrollProgress, [0, 0.2], [20, 0]),
     springConfig
   );
   const translateY = useSpring(
-    useTransform(scrollYProgress, [0, 0.2], [-700, 500]),
+    useTransform(lazyScrollProgress, [0, 0.2], [-700, 500]),
     springConfig
   );
 

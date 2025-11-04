@@ -24,10 +24,12 @@ export default function Home() {
         <div className="relative z-10 text-center flex flex-col items-center">
           <Image
             src="/assets/logo[1].png"
-            alt="Logo"
+            alt="JB's Lounge & Bar Logo"
             width={500}
             height={500}
             priority
+            fetchPriority="high"
+            quality={90}
             sizes="(max-width: 768px) 70vw, 500px"
           />
           {/* Text Reveal Component */}
