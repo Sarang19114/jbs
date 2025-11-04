@@ -26,7 +26,7 @@ export const SparklesCore = (props) => {
 
     const idle = (cb) => {
       if (typeof window !== 'undefined' && 'requestIdleCallback' in window) {
-        // @ts-ignore - not in TS lib for older targets
+        // @ts-expect-error requestIdleCallback not in older TS lib
         window.requestIdleCallback(cb, { timeout: 2000 });
       } else {
         setTimeout(cb, 1200); // slight delay to avoid competing with LCP
