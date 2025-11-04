@@ -1,7 +1,8 @@
 "use client";
 import React from "react";
 import Image from "next/image"; // Importing Image component for the logo
-import { SparklesCore } from "@/components/ui/sparkles";
+import dynamic from "next/dynamic";
+const SparklesCore = dynamic(() => import("@/components/ui/sparkles").then(m => m.SparklesCore), { ssr: false });
 
 const menuData = [
   {
@@ -134,12 +135,19 @@ const Card = ({ logo, drinkImage, drinkName, drinkDesc }) => {
       <div className={`card ${hovered ? "rotateY(180deg)" : ""}`}>
         {/* Front Side */}
         <div className="front">
-          <Image src={logo} alt="Logo" width={150} height={150} />
+          <Image src={logo} alt="Logo" width={150} height={150} sizes="150px" />
         </div>
 
         {/* Back Side - Reveals Drink Info */}
         <div className="back">
-          <Image src={drinkImage} alt={drinkName} width={250} height={250} />
+          <Image
+            src={drinkImage}
+            alt={drinkName}
+            width={250}
+            height={250}
+            loading="lazy"
+            sizes="(max-width: 768px) 50vw, 250px"
+          />
           <h3>{drinkName}</h3>
           <p>{drinkDesc}</p>
         </div>

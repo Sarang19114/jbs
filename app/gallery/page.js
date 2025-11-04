@@ -1,7 +1,8 @@
 import React from "react";
-import { HeroParallax } from "@/components/ui/hero-parallax";
 import { products } from "@/app/data/products";
-import { SparklesCore } from "@/components/ui/sparkles";
+import dynamic from "next/dynamic";
+const HeroParallax = dynamic(() => import("@/components/ui/hero-parallax").then(m => m.HeroParallax), { ssr: false });
+const SparklesCore = dynamic(() => import("@/components/ui/sparkles").then(m => m.SparklesCore), { ssr: false });
 
 export default function Gallery() {
   return (

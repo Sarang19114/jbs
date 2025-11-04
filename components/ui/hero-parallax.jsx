@@ -124,6 +124,8 @@ export const ProductCard = ({ product, translate }) => {
         width="700"
         className="object-cover relative h-full w-full inset-0"
         alt={"JB's Bar & Lounge"}
+        loading="lazy"
+        sizes="(max-width: 1024px) 80vw, 480px"
       />
     </motion.div>
   );

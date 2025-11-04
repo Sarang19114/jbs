@@ -2,9 +2,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import { TextReveal } from "@/components/ui/text-reveal-card"; // Updated import for TextReveal
 import Footer from "./components/Footer";
-import { SparklesCore } from "@/components/ui/sparkles";
+import dynamic from "next/dynamic";
+const SparklesCore = dynamic(() => import("@/components/ui/sparkles").then(m => m.SparklesCore), { ssr: false });
 
 export default function Home() {
   return (
@@ -27,6 +27,8 @@ export default function Home() {
             alt="Logo"
             width={500}
             height={500}
+            priority
+            sizes="(max-width: 768px) 70vw, 500px"
           />
           {/* Text Reveal Component */}
           <h1 className="text-4xl md:text-6xl font-bold text-[#f8941c] mt-[-30px] text-center">
@@ -88,6 +90,8 @@ export default function Home() {
                 width={400}
                 height={300}
                 className="w-full h-64 object-cover"
+                loading="lazy"
+                sizes="(max-width: 768px) 100vw, 400px"
               />
               <div className="p-6">
                 <h3 className="text-xl font-semibold mb-2 text-white">
@@ -108,6 +112,8 @@ export default function Home() {
                 width={400}
                 height={300}
                 className="w-full h-64 object-cover"
+                loading="lazy"
+                sizes="(max-width: 768px) 100vw, 400px"
               />
               <div className="p-6">
                 <h3 className="text-xl font-semibold mb-2 text-white">
@@ -128,6 +134,8 @@ export default function Home() {
                 width={400}
                 height={300}
                 className="w-full h-64 object-cover"
+                loading="lazy"
+                sizes="(max-width: 768px) 100vw, 400px"
               />
               <div className="p-6">
                 <h3 className="text-xl font-semibold mb-2 text-white">

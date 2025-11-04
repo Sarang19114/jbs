@@ -32,7 +32,7 @@ const Navigation = () => {
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
             <Link href="/" className="text-white font-bold text-xl flex items-center">
-              <Image src="/assets/logo.png" alt="Logo" width={40} height={40} className="mr-2"/>
+              <Image src="/assets/logo.png" alt="Logo" width={40} height={40} sizes="40px" className="mr-2"/>
               JB&apos;s Lounge & Bar
             </Link>
           </div>
